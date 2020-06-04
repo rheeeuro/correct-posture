@@ -4,7 +4,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import userRouter from "./routers/userRouter";
-import phoneRouter from "./routers/phoneRouter";
+import postureRouter from "./routers/postureRouter";
 import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
 
@@ -19,6 +19,6 @@ app.use(morgan("dev"));
 
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
-app.use(routes.phones, phoneRouter);
+app.use(routes.posture, postureRouter);
 
 export default app;

@@ -14,6 +14,7 @@ const CHANGE_PASSWORD = "/change-password";
 // Posture
 
 const POSTURE = "/posture";
+const JUDGE = "/judge";
 const EXERCISE_DETAIL = "/:id";
 
 const routes = {
@@ -26,6 +27,7 @@ const routes = {
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
   posture: POSTURE,
+  judge: JUDGE,
   exerciseDetail: EXERCISE_DETAIL,
 };
 
