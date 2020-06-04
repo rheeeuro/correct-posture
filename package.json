@@ -1,0 +1,14 @@
+{
+  "name": "correct-posture",
+  "version": "1.0.0",
+  "description": "Web project for correcting false posture using poseNet(TensorFlow)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rhee Euro",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
