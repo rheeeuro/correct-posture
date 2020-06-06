@@ -1,4 +1,8 @@
 extends layouts/main
 
 block content
-    p Exercise Detail
+    p
+        .exercise__img
+            img(src=exercise.imageUrl)
+    p=exercise.name
+    p=exercise.level

@@ -15,7 +15,20 @@ const CHANGE_PASSWORD = "/change-password";
 
 const POSTURE = "/posture";
 const JUDGE = "/judge";
+const EXERCISE_LIST = "/exerciseList";
 const EXERCISE_DETAIL = "/:id";
+
+// Github
+
+const GITHUB = "/auth/github";
+const GITHUB_CALLBACK = "/auth/github/callback";
+
+const ME = "/me";
+
+// Naver
+
+const NAVER = "/auth/naver";
+const NAVER_CALLBACK = "/auth/naver/callback";
 
 const routes = {
   home: HOME,
@@ -23,12 +36,30 @@ const routes = {
   login: LOGIN,
   logout: LOGOUT,
   users: USERS,
-  userDetail: USER_DETAIL,
+  userDetail: (id) => {
+    if (id) {
+      return `/users/${id}`;
+    } else {
+      return USER_DETAIL;
+    }
+  },
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
   posture: POSTURE,
   judge: JUDGE,
-  exerciseDetail: EXERCISE_DETAIL,
+  exerciseList: EXERCISE_LIST,
+  exerciseDetail: (id) => {
+    if (id) {
+      return `/posture/${id}`;
+    } else {
+      return EXERCISE_DETAIL;
+    }
+  },
+  gitHub: GITHUB,
+  githubCallback: GITHUB_CALLBACK,
+  naver: NAVER,
+  naverCallback: NAVER_CALLBACK,
+  me: ME,
 };
 
 export default routes;

@@ -1,0 +1,11 @@
+extends layouts/main
+include mixins/exerciseBlock
+
+block content
+    .exercises
+        each exercise in exercises
+            +exerciseBlock({
+                name:exercise.name,
+                image:exercise.image,
+                level:exercise.level
+            })

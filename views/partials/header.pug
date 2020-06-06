@@ -1,10 +1,18 @@
+  
 header.header
-    .header__column
-        a(href=routes.home)
-            i.fas.fa-child
-    .header__column
-        ul
-            li
-                a(href=routes.join) Join
-            li
-                a(href=routes.login) Log In
+    .header__wrapper
+        .header__column
+            a(href=routes.home)
+                i.fas.fa-child
+        .header__column
+            ul
+                if !loggedUser
+                    li
+                        a(href=routes.join) Join
+                    li
+                        a(href=routes.login) Log In
+                else 
+                    li
+                        a(href=routes.me) Profile
+                    li
+                        a(href=routes.logout) Log Out

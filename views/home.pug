@@ -1,4 +1,7 @@
 extends layouts/main
 
 block content
-    p Home  
+    p
+        a(href=`/posture${routes.judge}`)|Judge your posture
+    p
+        a(href=`posture${routes.exerciseList}`)|Do exercise
