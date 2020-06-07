@@ -1,0 +1,15 @@
+.home__btns {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  a {
+    button {
+      width: 300px;
+      background-color: white;
+      color: black;
+      margin-top: 30px;
+    }
+  }
+}

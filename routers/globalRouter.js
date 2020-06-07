@@ -1,7 +1,7 @@
 import express from "express";
 import passport from "passport";
 import routes from "../routes";
-import { home } from "../controllers/postureController";
+import { home, judge } from "../controllers/postureController";
 import {
   getJoin,
   postJoin,
@@ -17,6 +17,8 @@ import {
 import { onlyPublic, onlyPrivate } from "../middlewares";
 
 const globalRouter = express.Router();
+
+globalRouter.get(routes.judge, judge);
 
 globalRouter.get(routes.join, onlyPublic, getJoin);
 globalRouter.post(routes.join, onlyPublic, postJoin, postLogin);

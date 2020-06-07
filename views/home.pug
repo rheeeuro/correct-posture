@@ -1,7 +1,8 @@
 extends layouts/main
 
 block content
-    p
-        a(href=`/posture${routes.judge}`)|Judge your posture
-    p
-        a(href=`posture${routes.exerciseList}`)|Do exercise
+    .home__btns
+        a(href=routes.judge)
+            button Judge Your Posture
+        a(href=`posture${routes.exerciseList}`)
+            button Do Exercise

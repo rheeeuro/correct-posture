@@ -3,6 +3,7 @@ const HOME = "/";
 const JOIN = "/join";
 const LOGIN = "/login";
 const LOGOUT = "/logout";
+const JUDGE = "/judge";
 
 // Users
 
@@ -14,7 +15,6 @@ const CHANGE_PASSWORD = "/change-password";
 // Posture
 
 const POSTURE = "/posture";
-const JUDGE = "/judge";
 const EXERCISE_LIST = "/exerciseList";
 const EXERCISE_DETAIL = "/:id";
 

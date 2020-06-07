@@ -1,0 +1,9 @@
+.webcam-container {
+  video {
+    width: 640px;
+    height: 640px;
+    -moz-o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+}
