@@ -1,0 +1,8 @@
+extends layouts/main
+
+block content
+    .home__btns
+        a(href=routes.judge)
+            button Judge Your Posture
+        a(href=`posture${routes.exerciseList}`)
+            button Do Exercise
