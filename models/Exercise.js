@@ -13,6 +13,11 @@ const ExerciseSchema = new mongoose.Schema({
     type: Number,
     required: "Level is required",
   },
+  modelUrl: {
+    type: String,
+    required: "Model Url us required",
+  },
+  type: Number,
 });
 
 const model = mongoose.model("Exercise", ExerciseSchema);

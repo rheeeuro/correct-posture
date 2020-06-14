@@ -25,7 +25,7 @@ export const postJoin = async (req, res, next) => {
       next();
     } catch (error) {
       console.log(error);
-      res.redirect(route.home);
+      res.redirect(routes.home);
     }
   }
 };

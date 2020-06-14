@@ -1,7 +1,12 @@
 import express from "express";
 import passport from "passport";
 import routes from "../routes";
-import { home, judge } from "../controllers/postureController";
+import {
+  home,
+  judge,
+  getAddExercise,
+  postAddExercise,
+} from "../controllers/postureController";
 import {
   getJoin,
   postJoin,
@@ -29,6 +34,9 @@ globalRouter.post(routes.login, onlyPublic, postLogin);
 globalRouter.get(routes.home, home);
 
 globalRouter.get(routes.logout, onlyPrivate, logout);
+
+globalRouter.get(routes.addExercise, onlyPrivate, getAddExercise);
+globalRouter.post(routes.addExercise, onlyPrivate, postAddExercise);
 
 globalRouter.get(routes.gitHub, githubLogin);
 

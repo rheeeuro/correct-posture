@@ -2,10 +2,48 @@ extends layouts/main
 include mixins/exerciseBlock
 
 block content
-    .exercises
-        each exercise in exercises
-            +exerciseBlock({
-                name:exercise.name,
-                image:exercise.image,
-                level:exercise.level
-            })
+    .exerciseListContainer
+        .basic-exercise
+            .title
+                h2|Basic Exercises
+            .exercises
+                each exercise in exercises
+                    +exerciseBlock({
+                        id: exercise.id,
+                        name:exercise.name,
+                        imageUrl:exercise.imageUrl,
+                        level:exercise.level
+                    })
+        .head-exercise
+            .title
+                h2|Head Exercises
+            .exercises
+                each exercise in exercises
+                    +exerciseBlock({
+                        id: exercise.id,
+                        name:exercise.name,
+                        imageUrl:exercise.imageUrl,
+                        level:exercise.level
+                    })
+        .shoulder-exercise
+            .title
+                h2|Shoulder Exercises
+            .exercises
+                each exercise in exercises
+                    +exerciseBlock({
+                        id: exercise.id,
+                        name:exercise.name,
+                        imageUrl:exercise.imageUrl,
+                        level:exercise.level
+                    })
+        .leg-exercise
+            .title
+                h2|Leg Exercises
+            .exercises
+                each exercise in exercises
+                    +exerciseBlock({
+                        id: exercise.id,
+                        name:exercise.name,
+                        imageUrl:exercise.imageUrl,
+                        level:exercise.level
+                    })

@@ -1,8 +1,9 @@
 .header {
-  background-color: #666666;
   margin-bottom: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #cccccc;
   .header__wrapper {
-    padding: 7px 0px;
+    padding: 15px 0px;
     width: 100%;
     margin: 0 auto;
     max-width: 1200px;
@@ -11,12 +12,12 @@
     align-items: center;
     .header__column {
       i {
-        color: white;
+        color: #666666;
         font-size: 30px;
         margin-right: 5px;
       }
       span {
-        color: white;
+        color: #666666;
         font-size: 15px;
         display: table-cell;
         vertical-align: middle;
@@ -31,7 +32,7 @@
         a:active,
         a:hover {
           text-decoration: none;
-          color: white;
+          color: #666666;
         }
         font-weight: 600;
         text-transform: uppercase;

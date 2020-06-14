@@ -1,5 +1,16 @@
 mixin exerciseBlock(exercise = {})
     .exerciseBlock
-        img.exerciseBlock__img(src=exercise.image)
-        h4.exerciseBlock__name=exercise.name
-        h6.exerciseBlock__level=exercise.level
+        a(href=routes.exerciseDetail(exercise.id))
+            .img-container
+                img.exerciseBlock__img(src=exercise.imageUrl)
+            h4.exerciseBlock__name=exercise.name
+            h6.exerciseBlock__level
+                - var star = exercise.level
+                - var noStar = 5 - exercise.level
+                while star > 0
+                    span
+                        i.fas.fa-star
+                        -star--
+                while noStar > 0
+                        i.far.fa-star
+                        -noStar--

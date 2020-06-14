@@ -6,6 +6,12 @@ const UserSchema = new mongoose.Schema({
   email: String,
   naverId: Number,
   githubId: Number,
+  exerciseRecords: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "ExerciseRecord",
+    },
+  ],
 });
 
 UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });

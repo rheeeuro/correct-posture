@@ -1,0 +1,41 @@
+.exerciseContainer {
+  width: 90%;
+  text-align: center;
+  display: block;
+  .imageContainer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    grid-gap: 10px;
+    .exercise__img {
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      display: inline;
+      img {
+        width: 400px;
+        height: 400px;
+        margin-bottom: 10px;
+      }
+    }
+    .canvas__container {
+      border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+      canvas {
+      }
+    }
+  }
+  .label {
+    margin-bottom: 10px;
+  }
+  .exercise__description {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    h6 {
+      color: peru;
+      font-size: 12px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  }
+}

@@ -4,6 +4,7 @@ const JOIN = "/join";
 const LOGIN = "/login";
 const LOGOUT = "/logout";
 const JUDGE = "/judge";
+const ADD_EXERCISE = "/add-exercise";
 
 // Users
 
@@ -15,8 +16,8 @@ const CHANGE_PASSWORD = "/change-password";
 // Posture
 
 const POSTURE = "/posture";
-const EXERCISE_LIST = "/exerciseList";
 const EXERCISE_DETAIL = "/:id";
+const EXERCISE_LIST = "/exerciseList";
 
 // Github
 
@@ -35,13 +36,13 @@ const routes = {
   join: JOIN,
   login: LOGIN,
   logout: LOGOUT,
+  addExercise: ADD_EXERCISE,
   users: USERS,
   userDetail: (id) => {
     if (id) {
       return `/users/${id}`;
-    } else {
-      return USER_DETAIL;
     }
+    return USER_DETAIL;
   },
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
@@ -51,9 +52,8 @@ const routes = {
   exerciseDetail: (id) => {
     if (id) {
       return `/posture/${id}`;
-    } else {
-      return EXERCISE_DETAIL;
     }
+    return EXERCISE_DETAIL;
   },
   gitHub: GITHUB,
   githubCallback: GITHUB_CALLBACK,

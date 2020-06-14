@@ -1,4 +1,5 @@
 .home__btns {
+  margin-top: 300px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -8,6 +9,7 @@
     button {
       width: 300px;
       background-color: white;
+      border: 1px solid #cccccc;
       color: black;
       margin-top: 30px;
     }
