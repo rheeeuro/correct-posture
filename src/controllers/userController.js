@@ -1,6 +1,7 @@
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
+import Exercise from "../models/Exercise";
 
 // Join
 
@@ -112,8 +113,46 @@ export const logout = (req, res) => {
 
 // Me
 
-export const getMe = (req, res) => {
-  res.render("userDetail", { pageTitle: "My Profile", user: req.user });
+export const getMe = async (req, res) => {
+  let exercises = [];
+  let newExercises = [];
+
+  const headPercent =
+    req.user.headGoodTime / (req.user.headGoodTime + req.user.headBadTime);
+  const shoulderPercent =
+    req.user.shoulderGoodTime /
+    (req.user.shoulderGoodTime + req.user.shoulderBadTime);
+  const legPercent =
+    req.user.legGoodTime / (req.user.legGoodTime + req.user.legBadTime);
+
+  try {
+    newExercises = await Exercise.find({ type: 0 });
+    exercises = exercises.concat(newExercises);
+    if (headPercent < 0.5) {
+      newExercises = await Exercise.find({ type: 1 });
+      exercises = exercises.concat(newExercises);
+    }
+    if (shoulderPercent < 0.5) {
+      newExercises = await Exercise.find({ type: 2 });
+      exercises = exercises.concat(newExercises);
+    }
+    if (
+      legPercent < 0.5 &&
+      req.user.legGoodTime !== 0 &&
+      req.user.legBadTime !== 0
+    ) {
+      newExercises = await Exercise.find({ type: 3 });
+      exercises = exercises.concat(newExercises);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  res.render("userDetail", {
+    pageTitle: "My Profile",
+    user: req.user,
+    exercises,
+  });
 };
 
 export const userDetail = (req, res) =>

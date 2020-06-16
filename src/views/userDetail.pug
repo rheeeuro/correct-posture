@@ -1,15 +1,57 @@
 extends layouts/main
+include mixins/exerciseBlock
+
 
 block content
     .user-profile
+        .user-profile__btnContainer
+            if user.id === loggedUser.id
+                .user-profile__btns
+                    a(href=`/users${routes.editProfile}`)
+                        button ✏️ Edit Profile
+                    a(href=`/users${routes.changePassword}`)
+                        button 🔒 Change Password 
         .user-profile__header
             h4.profile__username=user.name
-        if user.id === loggedUser.id
-            .user-profile__btns
-                a(href=`/users${routes.editProfile}`)
-                    button ✏️ Edit Profile
-                a(href=`/users${routes.changePassword}`)
-                    button 🔒 Change Password 
-        .user-profile__records
-        .user-profile__exercises
-            
+        .user-profile__Title
+            h4|Posture Statistics Chart
+        .user-profile__chart#userChart
+            input(type="hidden", id="totalGoodTime", value=user.totalGoodTime)
+            input(type="hidden", id="totalBadTime", value=user.totalBadTime)
+            input(type="hidden", id="headGoodTime", value=user.headGoodTime)
+            input(type="hidden", id="headBadTime", value=user.headBadTime)
+            input(type="hidden", id="shoulderGoodTime", value=user.shoulderGoodTime)
+            input(type="hidden", id="shoulderBadTime", value=user.shoulderBadTime)
+            input(type="hidden", id="legGoodTime", value=user.legGoodTime)
+            input(type="hidden", id="legBadTime", value=user.legBadTime)
+            .canvasContainer
+                canvas.chartCanvas#jsChartTotal
+                h4|Total Posture
+                p=`( Good ${user.totalGoodTime} : Bad ${user.totalBadTime} )`
+            .canvasContainer
+                canvas.chartCanvas#jsChartHead
+                h4|Head 
+                p=`( Good ${user.headGoodTime} : Bad ${user.headBadTime} )`
+            .canvasContainer
+                canvas.chartCanvas#jsChartShoulder
+                h4|Shoulder 
+                p=`( Good ${user.shoulderGoodTime} : Bad ${user.shoulderBadTime} )`
+            .canvasContainer
+                canvas.chartCanvas#jsChartLeg
+                h4|Leg 
+                p=`( Good ${user.legGoodTime} : Bad ${user.legBadTime} )`
+        .user-profile__Title
+            h4|Exercise Record History
+        .user-profile__Title
+            h4|Recommend Exercises
+        .recommend-exercises
+                each exercise in exercises
+                    +exerciseBlock({
+                        id: exercise.id,
+                        name:exercise.name,
+                        imageUrl:exercise.imageUrl,
+                        level:exercise.level
+                    })
+block bottom
+    script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3")
+    script(src="static/chart.js")

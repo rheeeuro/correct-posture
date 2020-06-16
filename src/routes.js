@@ -31,6 +31,11 @@ const ME = "/me";
 const NAVER = "/auth/naver";
 const NAVER_CALLBACK = "/auth/naver/callback";
 
+// API
+
+const API = "/api";
+const SAVE_STATISTICS = "/save-statistics";
+
 const routes = {
   home: HOME,
   join: JOIN,
@@ -60,6 +65,8 @@ const routes = {
   naver: NAVER,
   naverCallback: NAVER_CALLBACK,
   me: ME,
+  api: API,
+  saveStatistics: SAVE_STATISTICS,
 };
 
 export default routes;

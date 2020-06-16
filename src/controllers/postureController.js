@@ -1,4 +1,5 @@
 import Exercise from "../models/Exercise";
+import User from "../models/User";
 import routes from "../routes";
 
 export const home = (req, res) => res.render("home", { pageTitle: "Home" });
@@ -47,5 +48,38 @@ export const postAddExercise = async (req, res) => {
     res.redirect(routes.exerciseDetail(newExercise.id));
   } catch (error) {
     res.redirect(routes.home);
+  }
+};
+
+export const postSaveStatistics = async (req, res) => {
+  const {
+    body: {
+      goodTotal,
+      badTotal,
+      goodHead,
+      badHead,
+      goodShoulder,
+      badShoulder,
+      goodLeg,
+      badLeg,
+    },
+    user,
+  } = req;
+
+  try {
+    const judgedUser = await User.findById(user.id);
+    judgedUser.totalGoodTime += goodTotal;
+    judgedUser.totalBadTime += badTotal;
+    judgedUser.headGoodTime += goodHead;
+    judgedUser.headBadTime += badHead;
+    judgedUser.shoulderGoodTime += goodShoulder;
+    judgedUser.shoulderBadTime += badShoulder;
+    judgedUser.legGoodTime += goodLeg;
+    judgedUser.legBadTime += badLeg;
+    judgedUser.save();
+  } catch (error) {
+    console.log(error);
+  } finally {
+    res.end();
   }
 };

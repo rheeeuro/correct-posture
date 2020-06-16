@@ -6,24 +6,46 @@ block scripts
     script(src="https://unpkg.com/ml5@0.3.1/dist/ml5.min.js" type="text/javascript")
 
 block content
-    .judge-container
-        .webcam-container#jsWebcamContainer
-        .result-container
-            .result.card#jsResultCard
-                h2|Result
-                p#reaultText|Short description
-            .head.card#jsHeadCard
-                h2|Head
-                p#resultHeadText|Keep your head up and your eyes level.
-            .shoulder.card#jsShoulderCard
-                h2|Shoulder
-                p#resultShoulderText|Keep your spine straight and your shoulders back.
-            .leg.card#jsLegCard
-                h2|Leg
-                p#resultLegText|Keep your leg parallel to the floor
     .judge-description
         .loadingcard#jsLoagingcard
             p#status Loading model...
+    .judge-container
+        .webcam-container#jsWebcamContainer
+        .result-container
+            .container
+                .result.card#jsResultCard
+                    h2|Result
+                    p#reaultText|Your posture is not good.
+                .statisticCard#jsTotalStat
+                    .bar#jsTotalBar|Total Statistics
+            .container
+                .head.card#jsHeadCard
+                    h2|Head
+                    p#resultHeadText|Keep your head up and your eyes level.
+                .statisticCard#jsHeadStat
+                    .bar#jsHeadBar|Head Statistics
+            .container
+                .shoulder.card#jsShoulderCard
+                    h2|Shoulder
+                    p#resultShoulderText|Keep your spine straight and your shoulders back.
+                .statisticCard#jsShoulderStat
+                    .bar#jsShoulderBar|Shoulder Statistics
+            .container
+                .leg.card#jsLegCard
+                    h2|Leg
+                    p#resultLegText|Keep your leg parallel to the floor
+                .statisticCard#jsLegStat
+                    .bar#jsLegBar|Leg Statistics
+    if loggedUser
+        input(type="hidden", id="userId", value=loggedUser.id)
+        input(type="hidden", id="goodTotal", value="false")
+        input(type="hidden", id="goodHead", value="false")
+        input(type="hidden", id="goodShoulder", value="false")
+        input(type="hidden", id="goodLeg", value="false")
+        .buttonContainer#jsBtnContainer
+            a#jsJudgeAnchor
+                button.judgeBtn#jsJudgeBtn|Judge Start!
+
 
 block bottom
     script(src="static/sketch.js")

@@ -10,12 +10,26 @@ const headCard = document.getElementById("jsHeadCard");
 const shoulderCard = document.getElementById("jsShoulderCard");
 const legCard = document.getElementById("jsLegCard");
 
+const inputTotal = document.getElementById("goodTotal");
+const inputHead = document.getElementById("goodHead");
+const inputShoulder = document.getElementById("goodShoulder");
+const inputLeg = document.getElementById("goodLeg");
+
 let posture = {
   isGoodShoulderPosture: false,
   isGoodHeadPosture: false,
   isGoodLegPosture: false,
   isGoodPosture: false,
   isStanding: false,
+  isLegExist: false,
+};
+let statistics = {
+  goodHeadCount: 0,
+  badHeadCount: 0,
+  goodShoulderCount: 0,
+  badShoulderCount: 0,
+  goodLegCount: 0,
+  badLegCount: 0,
 };
 
 function setup() {
@@ -35,7 +49,7 @@ function setup() {
 }
 
 function gotPoses(poses) {
-  //console.log(poses);
+  // console.log(poses);
   if (poses.length > 0) {
     pose = poses[0].pose;
     skeleton = poses[0].skeleton;
@@ -95,10 +109,171 @@ function drawSkeleton() {
   }
 }
 
-function postureAlgorithm() {
-  if (!pose) {
-    posture.isStanding = true;
+function postureStatistics() {
+  // Head card
+  if (headCard) {
+    if (!posture.isGoodHeadPosture) {
+      headCard.classList.add("bg-danger");
+      headCard.classList.remove("bg-good");
+      document.getElementById("resultHeadText").innerHTML =
+        "Keep your head up and your eyes level.";
+      statistics.badHeadCount += 1;
+    } else {
+      headCard.classList.add("bg-good");
+      headCard.classList.remove("bg-danger");
+      document.getElementById("resultHeadText").innerHTML = "Good Posture!";
+      statistics.goodHeadCount += 1;
+    }
+  }
+
+  // Shoulder card
+  if (shoulderCard) {
+    if (!posture.isGoodShoulderPosture) {
+      shoulderCard.classList.add("bg-danger");
+      shoulderCard.classList.remove("bg-good");
+      document.getElementById("resultShoulderText").innerHTML =
+        "Keep your spine straight and your shoulders back.";
+      statistics.badShoulderCount += 1;
+    } else {
+      shoulderCard.classList.add("bg-good");
+      shoulderCard.classList.remove("bg-danger");
+      document.getElementById("resultShoulderText").innerHTML = "Good Posture!";
+      statistics.goodShoulderCount += 1;
+    }
+  }
+
+  // Legs card
+  if (legCard) {
+    if (posture.isLegExist) {
+      if (!posture.isGoodLegPosture) {
+        legCard.classList.add("bg-danger");
+        legCard.classList.remove("bg-notExist");
+        legCard.classList.remove("bg-good");
+        document.getElementById("resultLegText").innerHTML =
+          "Keep your legs parallel to the floor.";
+        statistics.badLegCount += 1;
+      } else {
+        legCard.classList.add("bg-good");
+        legCard.classList.remove("bg-danger");
+        legCard.classList.remove("bg-notExist");
+        document.getElementById("resultLegText").innerHTML = "Good Posture!";
+        statistics.goodLegCount += 1;
+      }
+    } else {
+      legCard.classList.add("bg-notExist");
+      legCard.classList.remove("bg-danger");
+      legCard.classList.remove("bg-good");
+      document.getElementById("resultLegText").innerHTML =
+        "Legs doen not detected";
+    }
+  }
+
+  if (resultCard) {
+    if (posture.isLegExist) {
+      if (
+        posture.isGoodHeadPosture &&
+        posture.isGoodShoulderPosture &&
+        posture.isGoodLegPosture
+      ) {
+        resultCard.classList.add("bg-good");
+        resultCard.classList.remove("bg-danger");
+        document.getElementById("reaultText").innerHTML = "Good Posture!";
+      } else {
+        resultCard.classList.add("bg-danger");
+        resultCard.classList.remove("bg-good");
+        document.getElementById("reaultText").innerHTML =
+          "Your posture is not good.";
+      }
+    } else {
+      if (posture.isGoodHeadPosture && posture.isGoodShoulderPosture) {
+        resultCard.classList.add("bg-good");
+        resultCard.classList.remove("bg-danger");
+        document.getElementById("reaultText").innerHTML = "Good Posture!";
+      } else {
+        resultCard.classList.add("bg-danger");
+        resultCard.classList.remove("bg-good");
+        document.getElementById("reaultText").innerHTML =
+          "Your posture is not good.";
+      }
+    }
+  }
+}
+
+if (inputTotal && inputHead && inputShoulder && inputLeg) {
+  setInterval(postureChart, 1000);
+}
+
+function postureChart() {
+  let goodTotal = false;
+  let goodHead = false;
+  let goodShoulder = false;
+  let goodLeg = false;
+
+  // count total
+  let totalGoodCount = 0;
+  let totalBadCount = 0;
+  totalGoodCount =
+    statistics.goodHeadCount +
+    statistics.goodShoulderCount +
+    statistics.goodLegCount;
+  totalBadCount =
+    statistics.badHeadCount +
+    statistics.badShoulderCount +
+    statistics.badLegCount;
+
+  // Decide good or bad
+  if (totalGoodCount > totalBadCount) {
+    goodTotal = true;
+  }
+  if (statistics.goodHeadCount > statistics.badHeadCount) {
+    goodHead = true;
+  }
+  if (statistics.goodShoulderCount > statistics.badShoulderCount) {
+    goodShoulder = true;
+  }
+  if (statistics.goodLegCount > statistics.badLegCount) {
+    goodLeg = true;
+  }
+
+  if (goodTotal) {
+    inputTotal.value = "true";
   } else {
+    inputTotal.value = "false";
+  }
+
+  if (goodHead) {
+    inputHead.value = "true";
+  } else {
+    inputHead.value = "false";
+  }
+
+  if (goodShoulder) {
+    inputShoulder.value = "true";
+  } else {
+    inputShoulder.value = "false";
+  }
+
+  if (statistics.goodLegCount === 0 && statistics.badLegCount === 0) {
+    inputLeg.value = "none";
+  } else {
+    if (goodLeg) {
+      inputLeg.value = "true";
+    } else {
+      inputLeg.value = "false";
+    }
+  }
+
+  // reset
+  statistics.goodHeadCount = 0;
+  statistics.badHeadCount = 0;
+  statistics.goodShoulderCount = 0;
+  statistics.badShoulderCount = 0;
+  statistics.goodLegCount = 0;
+  statistics.badLegCount = 0;
+}
+
+function postureAlgorithm() {
+  if (pose) {
     // 0	nose
     // 1	leftEye
     // 2	rightEye
@@ -136,134 +311,220 @@ function postureAlgorithm() {
     let rightAnkle = pose.keypoints[16];
 
     // Detect side
-    let isRightSide = false;
-    if (rightEar.score > leftEar.score) {
-      isRightSide = true;
+    let side = 0;
+    if (leftEar.score - rightEar.score > 0.5) {
+      side = 1; // left side
+    } else if (leftEar.score - rightEar.score < -0.5) {
+      side = -1; // right side
     } else {
-      isRightSide = false;
+      side = 0; // front side
     }
 
-    // Set dominant parts
-    let dominantShoulder;
-    let dominantHip;
-    let dominantEar;
-    let dominantKnee;
-    let dominantAnkle;
-    let dominantEye;
-
-    // Detect side
-    if (isRightSide) {
-      dominantShoulder = rightShoulder;
-      dominantHip = rightHip;
-      dominantEar = rightEar;
-      dominantKnee = rightKnee;
-      dominantAnkle = rightAnkle;
-      dominantEye = rightEye;
-    } else {
-      dominantShoulder = leftShoulder;
-      dominantHip = leftHip;
-      dominantEar = rightEar;
-      dominantKnee = leftKnee;
-      dominantAnkle = leftAnkle;
-      dominantEye = leftEye;
-    }
-    let yDistanceBetweenHeadandHip =
-      dominantEye.position.y - dominantHip.position.y;
-    let yDistanceBetweenShoulderandHip =
-      dominantShoulder.position.y - dominantHip.position.y;
-    let shoulderToHipDifferenceX =
-      dominantShoulder.position.x - dominantHip.position.x;
-    let earToShoulderDifferenceX =
-      dominantEar.position.x - dominantShoulder.position.x;
-    let kneeToHipDifferenceY = dominantHip.position.y - dominantKnee.position.y;
-
-    // Set isGoodShoulderPosture
-    if (abs(shoulderToHipDifferenceX) < 30) {
-      posture.isGoodShoulderPosture = true;
-    } else {
-      posture.isGoodShoulderPosture = false;
-    }
-
-    // Set isGoodHeadPosture
+    // Detect Leg
     if (
-      abs(yDistanceBetweenShoulderandHip / yDistanceBetweenHeadandHip) < 0.725
+      leftHip.score > 0.5 &&
+      rightHip.score > 0.5 &&
+      leftKnee.score > 0.5 &&
+      rightKnee.score > 0.5
     ) {
-      posture.isGoodHeadPosture = true;
+      posture.isLegExist = true;
     } else {
-      posture.isGoodHeadPosture = false;
+      posture.isLegExist = false;
     }
 
-    if (
-      posture.isGoodShoulderPosture &&
-      posture.isGoodHeadPosture &&
-      posture.isGoodLegPosture
-    ) {
-      posture.isGoodPosture = true;
-    } else {
-      posture.isGoodPosture = false;
+    // Detect Standing
+    if (posture.isLegExist) {
+      let averageHipPositionY = (leftHip.position.y + rightHip.position.y) / 2;
+      let averageKneePositionY =
+        (leftKnee.position.y + rightKnee.position.y) / 2;
+      let averageShoulderPositionY =
+        (leftShoulder.position.y + rightShoulder.position.y) / 2;
+
+      let differenceBetweenAverageShoudlerAndHipPositionY =
+        averageShoulderPositionY - averageHipPositionY;
+      let differenceBetweenAverageHipAndKneePositionY =
+        averageHipPositionY - averageKneePositionY;
+
+      if (
+        abs(differenceBetweenAverageHipAndKneePositionY) >
+        abs(differenceBetweenAverageShoudlerAndHipPositionY) * 0.7
+      ) {
+        posture.isStanding = true;
+      } else {
+        posture.isStanding = false;
+      }
     }
-    // Set isGoodAnklePosture
-    if (abs(earToShoulderDifferenceX) < 30) {
-      posture.isGoodHeadPosture = true;
+    if (side === 0) {
+      // front side
+
+      // front head
+      let isGoodLeftHead = false;
+      let isGoodRightHead = false;
+      let isGoodEarHeight = false;
+      let averageEyePositionY = (leftEye.position.y + rightEye.position.y) / 2;
+
+      if (abs(averageEyePositionY - nose.position.y) < 10) {
+        isGoodLeftHead = true;
+        isGoodRightHead = true;
+      } else {
+        if (
+          nose.position.y > leftEar.position.y &&
+          leftEar.position.y > leftEye.position.y
+        ) {
+          isGoodLeftHead = true;
+        }
+
+        if (
+          nose.position.y > rightEar.position.y &&
+          rightEar.position.y > rightEye.position.y
+        ) {
+          isGoodRightHead = true;
+        }
+      }
+
+      if (abs(leftEar.position.y - rightEar.position.y) < 20) {
+        isGoodEarHeight = true;
+      }
+
+      if (isGoodLeftHead && isGoodRightHead && isGoodEarHeight) {
+        posture.isGoodHeadPosture = true;
+      } else {
+        posture.isGoodHeadPosture = false;
+      }
+
+      // front shoulder
+      if (abs(leftShoulder.position.y - rightShoulder.position.y) < 25) {
+        posture.isGoodShoulderPosture = true;
+      } else {
+        posture.isGoodShoulderPosture = false;
+      }
+
+      // front leg
+      if (posture.isLegExist) {
+        let isGoodLeftLeg = false;
+        let isGoodRightLeg = false;
+
+        if (leftAnkle.confidence > 0.5 && rightAnkle.confidence > 0.5) {
+          if (
+            leftShoulder.position.x > leftAnkle.position.x &&
+            leftAnkle.position.x > rightHip.position.x
+          ) {
+            isGoodLeftLeg = true;
+          }
+          if (
+            rightShoulder.position.x < rightAnkle.position.x &&
+            rightAnkle.position.x < leftHip.position.x
+          ) {
+            isGoodRightLeg = true;
+          }
+        } else {
+          if (
+            leftShoulder.position.x > leftKnee.position.x &&
+            leftKnee.position.x > rightHip.position.x
+          ) {
+            isGoodLeftLeg = true;
+          }
+          if (
+            rightShoulder.position.x < rightKnee.position.x &&
+            rightKnee.position.x < leftHip.position.x
+          ) {
+            isGoodRightLeg = true;
+          }
+        }
+
+        if (isGoodLeftLeg && isGoodRightLeg) {
+          posture.isGoodLegPosture = true;
+        } else {
+          posture.isGoodLegPosture = false;
+        }
+        console.log(posture.isGoodLegPosture);
+      }
     } else {
-      posture.isGoodHeadPosture = false;
+      // Set dominant parts
+      let dominantShoulder;
+      let dominantHip;
+      let dominantEar;
+      let dominantKnee;
+      let dominantAnkle;
+      let dominantEye;
+
+      // Detect side
+      if (side == -1) {
+        dominantShoulder = rightShoulder;
+        dominantHip = rightHip;
+        dominantEar = rightEar;
+        dominantKnee = rightKnee;
+        dominantAnkle = rightAnkle;
+        dominantEye = rightEye;
+      } else {
+        dominantShoulder = leftShoulder;
+        dominantHip = leftHip;
+        dominantEar = rightEar;
+        dominantKnee = leftKnee;
+        dominantAnkle = leftAnkle;
+        dominantEye = leftEye;
+      }
     }
 
-    // Set isGoodLegPosture
-    if (abs(kneeToHipDifferenceY) < 30) {
-      posture.isGoodLegPosture = true;
-    } else {
-      posture.isGoodLegPosture = false;
-    }
+    //   let yDistanceBetweenHeadandHip =
+    //     dominantEye.position.y - dominantHip.position.y;
+    //   let yDistanceBetweenShoulderandHip =
+    //     dominantShoulder.position.y - dominantHip.position.y;
+    //   let shoulderToHipDifferenceX =
+    //     dominantShoulder.position.x - dominantHip.position.x;
+    //   let earToShoulderDifferenceX =
+    //     dominantEar.position.x - dominantShoulder.position.x;
+    //   let kneeToHipDifferenceY = dominantHip.position.y - dominantKnee.position.y;
 
-    // Detect if standing
-    averageHipPositionY = (leftHip.position.y + rightHip.position.y) / 2;
-    averageKneePositionY = (leftKnee.position.y + rightKnee.position.y) / 2;
-    differenceBetweenAverageHipAndKneePositionY =
-      averageHipPositionY - averageKneePositionY;
+    //   // Set isGoodShoulderPosture
+    //   if (abs(shoulderToHipDifferenceX) < 30) {
+    //     posture.isGoodShoulderPosture = true;
+    //   } else {
+    //     posture.isGoodShoulderPosture = false;
+    //   }
 
-    if (abs(differenceBetweenAverageHipAndKneePositionY) > 100) {
-      posture.isStanding = true;
-    } else {
-      posture.isStanding = false;
-    }
-  }
-}
+    //   // Set isGoodHeadPosture
+    //   if (
+    //     abs(yDistanceBetweenShoulderandHip / yDistanceBetweenHeadandHip) < 0.725
+    //   ) {
+    //     posture.isGoodHeadPosture = true;
+    //   } else {
+    //     posture.isGoodHeadPosture = false;
+    //   }
 
-function postureStatistics() {
-  // Shoulder card
-  if (shoulderCard) {
-    if (!posture.isGoodShoulderPosture) {
-      document.getElementById("jsShoulderCard").classList.add("bg-danger");
-      document.getElementById("resultShoulderText").innerHTML =
-        "Keep your spine straight and your shoulders back.";
-    } else {
-      document.getElementById("jsShoulderCard").classList.remove("bg-danger");
-      document.getElementById("resultShoulderText").innerHTML = "Good Posture!";
-    }
-  }
+    //   if (
+    //     posture.isGoodShoulderPosture &&
+    //     posture.isGoodHeadPosture &&
+    //     posture.isGoodLegPosture
+    //   ) {
+    //     posture.isGoodPosture = true;
+    //   } else {
+    //     posture.isGoodPosture = false;
+    //   }
+    //   // Set isGoodAnklePosture
+    //   if (abs(earToShoulderDifferenceX) < 30) {
+    //     posture.isGoodHeadPosture = true;
+    //   } else {
+    //     posture.isGoodHeadPosture = false;
+    //   }
 
-  // Head card
-  if (headCard) {
-    if (!posture.isGoodHeadPosture) {
-      document.getElementById("jsHeadCard").classList.add("bg-danger");
-      document.getElementById("resultHeadText").innerHTML =
-        "Keep your head up and your eyes level.";
-    } else {
-      document.getElementById("jsHeadCard").classList.remove("bg-danger");
-      document.getElementById("resultHeadText").innerHTML = "Good Posture!";
-    }
-  }
+    //   // Set isGoodLegPosture
+    //   if (abs(kneeToHipDifferenceY) < 30) {
+    //     posture.isGoodLegPosture = true;
+    //   } else {
+    //     posture.isGoodLegPosture = false;
+    //   }
 
-  // Legs card
-  if (legCard) {
-    if (!posture.isGoodLegPosture) {
-      document.getElementById("jsLegCard").classList.add("bg-danger");
-      document.getElementById("resultLegText").innerHTML =
-        "Keep your legs parallel to the floor.";
-    } else {
-      document.getElementById("jsLegCard").classList.remove("bg-danger");
-      document.getElementById("resultLegText").innerHTML = "Good Posture!";
-    }
+    //   // Detect if standing
+    //   averageHipPositionY = (leftHip.position.y + rightHip.position.y) / 2;
+    //   averageKneePositionY = (leftKnee.position.y + rightKnee.position.y) / 2;
+    //   differenceBetweenAverageHipAndKneePositionY =
+    //     averageHipPositionY - averageKneePositionY;
+
+    //   if (abs(differenceBetweenAverageHipAndKneePositionY) > 100) {
+    //     posture.isStanding = true;
+    //   } else {
+    //     posture.isStanding = false;
+    //   }
   }
 }

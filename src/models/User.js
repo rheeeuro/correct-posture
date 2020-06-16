@@ -12,6 +12,38 @@ const UserSchema = new mongoose.Schema({
       ref: "ExerciseRecord",
     },
   ],
+  totalGoodTime: {
+    type: Number,
+    default: 0,
+  },
+  totalBadTime: {
+    type: Number,
+    default: 0,
+  },
+  headGoodTime: {
+    type: Number,
+    default: 0,
+  },
+  headBadTime: {
+    type: Number,
+    default: 0,
+  },
+  shoulderGoodTime: {
+    type: Number,
+    default: 0,
+  },
+  shoulderBadTime: {
+    type: Number,
+    default: 0,
+  },
+  legGoodTime: {
+    type: Number,
+    default: 0,
+  },
+  legBadTime: {
+    type: Number,
+    default: 0,
+  },
 });
 
 UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
