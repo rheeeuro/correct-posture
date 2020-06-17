@@ -27,6 +27,7 @@ block content
                 .label#label-container
         if loggedUser
             input(type="hidden", id="username", value=loggedUser.name)
+            input(type="hidden", id="modelUrl", value=exercise.modelUrl)
 
 block bottom
     script(src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js")

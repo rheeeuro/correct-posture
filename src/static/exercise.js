@@ -4,12 +4,12 @@
 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 
 // the link to your model provided by Teachable Machine export panel
-const URL = "https://teachablemachine.withgoogle.com/models/J8VRvhaFz/";
 const image = document.getElementById("exerciseImage");
 const startButton = document.getElementById("startButton");
 const saveButton = document.getElementById("saveButton");
 const redirectButton = document.getElementById("redirectButton");
 const username = document.getElementById("username");
+const modelUrl = document.getElementById("modelUrl");
 
 let model;
 let webcam;
@@ -21,6 +21,7 @@ let status = "one";
 let count = 0;
 
 async function init() {
+  const URL = modelURL.value;
   startButton.style.display = "none";
   if (username) {
     saveButton.style.display = "block";
