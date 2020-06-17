@@ -1,0 +1,28 @@
+mixin historyBlock(history = {})
+    .historyBlock
+        a(href=routes.exerciseDetail(history.id))
+            .historyContainer
+                .img-container
+                    img.historyBlock__img(src=history.imageUrl)
+                .info-comtainer
+                    h4.historyBlock__name=history.name
+                    h6.historyBlock__level
+                        - var star = history.level
+                        - var noStar = 5 - history.level
+                        while star > 0
+                            span
+                                i.fas.fa-star
+                                -star--
+                        while noStar > 0
+                                i.far.fa-star
+                                -noStar--
+            .historyInfo
+                if history.set === 1
+                    h2.historyBlock__set
+                        span|1
+                        |  set complete
+                else
+                    h2.historyBlock__set
+                        span=history.set
+                        |  sets complete
+                h1.historyBlock__date=history.date

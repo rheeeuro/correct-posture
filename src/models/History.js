@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ExerciseRecordSchema = new mongoose.Schema({
+const HistorySchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -13,7 +13,14 @@ const ExerciseRecordSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  set: {
+    type: Number,
+    default: 0,
+  },
+  imageUrl: String,
+  name: String,
+  level: Number,
 });
 
-const model = mongoose.model("Exercise", ExerciseRecordSchema);
+const model = mongoose.model("History", HistorySchema);
 export default model;

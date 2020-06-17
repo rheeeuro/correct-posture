@@ -17,25 +17,25 @@ block content
                     h2|Result
                     p#reaultText|Your posture is not good.
                 .statisticCard#jsTotalStat
-                    .bar#jsTotalBar|Total Statistics
+                    .bar#jsTotalBar|Composite postural ratio
             .container
                 .head.card#jsHeadCard
                     h2|Head
                     p#resultHeadText|Keep your head up and your eyes level.
                 .statisticCard#jsHeadStat
-                    .bar#jsHeadBar|Head Statistics
+                    .bar#jsHeadBar|Head posture ratio
             .container
                 .shoulder.card#jsShoulderCard
                     h2|Shoulder
                     p#resultShoulderText|Keep your spine straight and your shoulders back.
                 .statisticCard#jsShoulderStat
-                    .bar#jsShoulderBar|Shoulder Statistics
+                    .bar#jsShoulderBar|Shoulder posture ratio
             .container
                 .leg.card#jsLegCard
                     h2|Leg
                     p#resultLegText|Keep your leg parallel to the floor
                 .statisticCard#jsLegStat
-                    .bar#jsLegBar|Leg Statistics
+                    .bar#jsLegBar|Leg posture ratio
     if loggedUser
         input(type="hidden", id="userId", value=loggedUser.id)
         input(type="hidden", id="goodTotal", value="false")

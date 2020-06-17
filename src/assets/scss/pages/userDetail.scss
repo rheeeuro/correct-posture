@@ -65,6 +65,14 @@
       }
     }
   }
+  .exercise-histories {
+    width: 100%;
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(100px, 1fr));
+    grid-gap: 30px;
+    white-space: nowrap;
+  }
   .recommend-exercises {
     width: 100%;
     margin-bottom: 30px;

@@ -1,9 +1,15 @@
+/*eslint-disable */
+
 // More API functions here:
 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 
 // the link to your model provided by Teachable Machine export panel
 const URL = "https://teachablemachine.withgoogle.com/models/J8VRvhaFz/";
-const doButton = document.getElementById("doButton");
+const image = document.getElementById("exerciseImage");
+const startButton = document.getElementById("startButton");
+const saveButton = document.getElementById("saveButton");
+const redirectButton = document.getElementById("redirectButton");
+const username = document.getElementById("username");
 
 let model;
 let webcam;
@@ -11,7 +17,16 @@ let ctx;
 let labelContainer;
 let maxPredictions;
 
+let status = "one";
+let count = 0;
+
 async function init() {
+  startButton.style.display = "none";
+  if (username) {
+    saveButton.style.display = "block";
+  } else {
+    redirectButton.style.display = "block";
+  }
   const modelURL = URL + "model.json";
   const metadataURL = URL + "metadata.json";
 
@@ -30,7 +45,9 @@ async function init() {
   window.requestAnimationFrame(loop);
 
   // append/get elements to the DOM
-  const canvas = document.getElementById("canvas");
+  const canvas = document.getElementById("exerciseCanvas");
+  image.style.display = "none";
+  canvas.style.display = "block";
   canvas.width = size;
   canvas.height = size;
   ctx = canvas.getContext("2d");
@@ -54,6 +71,32 @@ async function predict() {
   // Prediction 2: run input through teachable machine classification model
   const prediction = await model.predict(posenetOutput);
 
+  if (prediction[0].probability.toFixed(2) > 0.9) {
+    if (status == "two") {
+      count += 1;
+      document.getElementById("setCount").innerHTML = `Set count: ${parseInt(
+        count / 10
+      )}`;
+      document.getElementById("totalCount").innerHTML = `Total count: ${count}`;
+      let audio = new Audio(
+        `https://evolution.voxeo.com/library/audio/prompts/numbers/${
+          count % 10 === 0 ? 10 : count % 10
+        }.wav`
+      );
+      audio.play();
+    }
+    status = "one";
+  } else if (prediction[1].probability.toFixed(2) == 1.0) {
+    status = "two";
+  }
+  // else if (prediction[2].probability.toFixed(2) === 1.0) {
+  //   if (status === "one" || status === "two") {
+  //     // let audio = new Audio();
+  //     // audio.play();
+  //   }
+  //   status = "else";
+  // }
+
   for (let i = 0; i < maxPredictions; i++) {
     const classPrediction =
       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
@@ -74,4 +117,8 @@ function drawPose(pose) {
       tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
     }
   }
+}
+
+if (startButton) {
+  startButton.addEventListener("click", init);
 }

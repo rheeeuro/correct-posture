@@ -6,10 +6,10 @@ const UserSchema = new mongoose.Schema({
   email: String,
   naverId: Number,
   githubId: Number,
-  exerciseRecords: [
+  histories: [
     {
-      type: mongoose.Types.ObjectId,
-      ref: "ExerciseRecord",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "History",
     },
   ],
   totalGoodTime: {

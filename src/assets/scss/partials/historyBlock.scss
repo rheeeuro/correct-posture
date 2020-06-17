@@ -1,0 +1,58 @@
+.historyBlock {
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  a:link,
+  a:visited,
+  a:active,
+  a:hover {
+    text-decoration: none;
+    color: black;
+  }
+  a {
+    color: black;
+    width: 100%;
+    .historyContainer {
+      display: flex;
+      flex-direction: row;
+      .img-container {
+        width: 60px;
+        text-align: center;
+        display: block;
+        img.historyBlock__img {
+          width: 60px;
+          height: 60px;
+          background-color: $grey;
+          margin-bottom: 10px;
+          border: 3px solid rgba(0, 0, 0, 0.2);
+        }
+      }
+      .info-comtainer {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+        h4 {
+          text-align: center;
+          font-size: 15px;
+          margin-top: 15px;
+          margin-bottom: 10px;
+        }
+        h6 {
+          font-size: 10px;
+          text-align: center;
+          color: peru;
+        }
+      }
+    }
+    .historyInfo {
+      text-align: center;
+      h2 {
+        font-size: 23px;
+        margin-bottom: 15px;
+        font-weight: 200;
+      }
+      h1 {
+        color: grey;
+      }
+    }
+  }
+}

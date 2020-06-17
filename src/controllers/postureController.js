@@ -1,4 +1,5 @@
 import Exercise from "../models/Exercise";
+import History from "../models/History";
 import User from "../models/User";
 import routes from "../routes";
 
@@ -8,8 +9,17 @@ export const judge = (req, res) => res.render("judge", { pageTitle: "Judge" });
 
 export const exerciseList = async (req, res) => {
   try {
-    const exercises = await Exercise.find({});
-    res.render("exerciseList", { pageTitle: "Exercise List", exercises });
+    const exercises0 = await Exercise.find({ type: 0 });
+    const exercises1 = await Exercise.find({ type: 1 });
+    const exercises2 = await Exercise.find({ type: 2 });
+    const exercises3 = await Exercise.find({ type: 3 });
+    res.render("exerciseList", {
+      pageTitle: "Exercise List",
+      exercises0,
+      exercises1,
+      exercises2,
+      exercises3,
+    });
   } catch (error) {
     console.log(error);
     res.redirect(routes.home);
@@ -35,7 +45,7 @@ export const getAddExercise = (req, res) => {
 };
 export const postAddExercise = async (req, res) => {
   const {
-    body: { imageUrl, name, level, modelUrl, type },
+    body: { imageUrl, name, level, modelUrl, type, description },
   } = req;
   try {
     const newExercise = await Exercise.create({
@@ -44,6 +54,7 @@ export const postAddExercise = async (req, res) => {
       level,
       modelUrl,
       type,
+      description,
     });
     res.redirect(routes.exerciseDetail(newExercise.id));
   } catch (error) {
@@ -77,6 +88,32 @@ export const postSaveStatistics = async (req, res) => {
     judgedUser.legGoodTime += goodLeg;
     judgedUser.legBadTime += badLeg;
     judgedUser.save();
+  } catch (error) {
+    console.log(error);
+  } finally {
+    res.end();
+  }
+};
+
+export const postSaveHistory = async (req, res) => {
+  const {
+    params: { id },
+    body: { set },
+  } = req;
+
+  try {
+    const didUser = await User.findById(req.user.id);
+    const exercise = await Exercise.findById(id);
+    const history = await History.create({
+      user: didUser.id,
+      name: exercise.name,
+      exercise: exercise.id,
+      set,
+      imageUrl: exercise.imageUrl,
+      level: exercise.level,
+    });
+    didUser.histories.push(history.id);
+    didUser.save();
   } catch (error) {
     console.log(error);
   } finally {

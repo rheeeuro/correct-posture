@@ -1,14 +1,11 @@
 extends layouts/main
 
 block content
-    .exerciseContainer
+    .exerciseContainer#jsExerciseContainer
         .imageContainer
-            .exercise__img
-                img(src=exercise.imageUrl)
-            .canvas__container
-                canvas#canvas
-        .label#label-container
-        .exercise__description
+            img(src=exercise.imageUrl)#exerciseImage
+            canvas(style={display:"none"})#exerciseCanvas
+        .exercise__info
             h2=exercise.name
             h6.exerciseBlock__level
                 - var star = exercise.level
@@ -20,8 +17,16 @@ block content
                 while noStar > 0
                         i.far.fa-star
                         -noStar--
-        button#doButton(type="button", onclick="init()") Do
-        button Exercise Complete!
+            button#startButton|Start Exercise
+            button(style={display:"none"})#saveButton|Finish Exercise
+            button(style={display:"none"})#redirectButton|Finish Exercise
+            h4=exercise.description
+            .countInfo#jsCountInfo
+                h1#setCount
+                h1#totalCount
+                .label#label-container
+        if loggedUser
+            input(type="hidden", id="username", value=loggedUser.name)
 
 block bottom
     script(src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js")

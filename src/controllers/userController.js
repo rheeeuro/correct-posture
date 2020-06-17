@@ -147,12 +147,8 @@ export const getMe = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-
-  res.render("userDetail", {
-    pageTitle: "My Profile",
-    user: req.user,
-    exercises,
-  });
+  const user = await User.findById(req.user.id).populate("histories");
+  res.render("userDetail", { pageTitle: "My Profile", user, exercises });
 };
 
 export const userDetail = (req, res) =>

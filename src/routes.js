@@ -35,6 +35,7 @@ const NAVER_CALLBACK = "/auth/naver/callback";
 
 const API = "/api";
 const SAVE_STATISTICS = "/save-statistics";
+const SAVE_HISTORY = "/:id/save-history";
 
 const routes = {
   home: HOME,
@@ -67,6 +68,7 @@ const routes = {
   me: ME,
   api: API,
   saveStatistics: SAVE_STATISTICS,
+  saveHistory: SAVE_HISTORY,
 };
 
 export default routes;

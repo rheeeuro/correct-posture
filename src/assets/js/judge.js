@@ -4,11 +4,6 @@ const btnContainer = document.getElementById("jsBtnContainer");
 const judgeAnchor = document.getElementById("jsJudgeAnchor");
 const judgeBtn = document.getElementById("jsJudgeBtn");
 
-const TotalStat = document.getElementById("jsTotalStat");
-const HeadStat = document.getElementById("jsHeadStat");
-const ShoulderStat = document.getElementById("jsShoulderStat");
-const LegStat = document.getElementById("jsLegStat");
-
 const inputTotal = document.getElementById("goodTotal");
 const inputHead = document.getElementById("goodHead");
 const inputShoulder = document.getElementById("goodShoulder");
@@ -128,10 +123,10 @@ const handleSave = () => {
 
   // change view
   judgeBtn.innerHTML = "Judge Start!";
-  totalBar.innerHTML = "Total Statistics";
-  headBar.innerHTML = "Head Statistics";
-  shoulderBar.innerHTML = "Shoulder Statistics";
-  legBar.innerHTML = "Leg Statistics";
+  totalBar.innerHTML = "Composite postural ratio";
+  headBar.innerHTML = "Head posture ratio";
+  shoulderBar.innerHTML = "Shoulder posture ratio";
+  legBar.innerHTML = "Leg posture ratio";
 
   // reset
   count.goodTotal = 0;
