@@ -51,7 +51,7 @@ block content
                         id: history.exercise.toString(),
                         set: history.set,
                         name:history.name,
-                        imageUrl:history.imageUrl,
+                        imageUrl:`./files/images/${history.imageUrl}`,
                         level:history.level,
                         date: formatDate(history.date),
                     })
@@ -62,7 +62,7 @@ block content
                     +exerciseBlock({
                         id: exercise.id,
                         name:exercise.name,
-                        imageUrl:exercise.imageUrl,
+                        imageUrl:`./files/images/${history.imageUrl}`,
                         level:exercise.level
                     })
 block bottom

@@ -1,3 +1,5 @@
+/*eslint-disable */
+
 const userChart = document.getElementById("userChart");
 
 const chartTotal = document.getElementById("jsChartTotal");
