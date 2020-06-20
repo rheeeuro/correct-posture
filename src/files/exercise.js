@@ -77,8 +77,7 @@ async function predict() {
   // Prediction 2: run input through teachable machine classification model
   const prediction = await model.predict(posenetOutput);
 
-
-  // [0] - pose 1(first), [1] - pose 2(last), [2] - else, [3] - nocam , ... 
+  // [0] - pose 1(first), [1] - pose 2(last), [2] - else, [3] - nocam , ...
   if (prediction[0].probability.toFixed(2) > 0.9) {
     if (status == "two") {
       count += 1;
@@ -125,6 +124,7 @@ async function predict() {
       // nocam process
     }
     status = "nocam";
+  }
 
   for (let i = 0; i < maxPredictions; i++) {
     const classPrediction =
