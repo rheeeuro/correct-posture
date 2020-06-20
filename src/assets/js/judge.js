@@ -183,6 +183,9 @@ const handleStart = () => {
   headBar.innerHTML = "";
   shoulderBar.innerHTML = "";
   legBar.innerHTML = "";
+  const div = document.createElement("div");
+  div.classList.add("fill-one");
+  judgeBtn.appendChild(div);
 
   // change event listener
   judgeAnchor.removeEventListener("click", handleStart);

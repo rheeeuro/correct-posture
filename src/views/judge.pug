@@ -12,25 +12,25 @@ block content
     .judge-container
         .webcam-container#jsWebcamContainer
         .result-container
-            .container
+            .partContainer
                 .result.card#jsResultCard
                     h2|Result
                     p#reaultText|Your posture is not good.
                 .statisticCard#jsTotalStat
                     .bar#jsTotalBar|Composite postural ratio
-            .container
+            .partContainer
                 .head.card#jsHeadCard
                     h2|Head
                     p#resultHeadText|Keep your head up and your eyes level.
                 .statisticCard#jsHeadStat
                     .bar#jsHeadBar|Head posture ratio
-            .container
+            .partContainer
                 .shoulder.card#jsShoulderCard
                     h2|Shoulder
                     p#resultShoulderText|Keep your spine straight and your shoulders back.
                 .statisticCard#jsShoulderStat
                     .bar#jsShoulderBar|Shoulder posture ratio
-            .container
+            .partContainer
                 .leg.card#jsLegCard
                     h2|Leg
                     p#resultLegText|Keep your leg parallel to the floor
@@ -38,7 +38,9 @@ block content
                     .bar#jsLegBar|Leg posture ratio
     .buttonContainer#jsBtnContainer
         a#jsJudgeAnchor
-            button.judgeBtn#jsJudgeBtn|Judge Start!
+            .container.container-one
+                button.judgeBtn#jsJudgeBtn|Judge Start!
+                    .fill-one
         input(type="hidden", id="goodTotal", value="false")
         input(type="hidden", id="goodHead", value="false")
         input(type="hidden", id="goodShoulder", value="false")

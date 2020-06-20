@@ -1,8 +1,15 @@
 extends layouts/main
 
 block content
-    .home__btns
-        a(href=routes.judge)
-            button Judge Your Posture
-        a(href=`posture${routes.exerciseList}`)
-            button Do Exercise
+    .home__container
+        .home__btns
+            img(src="./files/images/posture.png")
+            a(href=routes.judge)
+                .container.container-one
+                    button Judge Your Posture
+                        .fill-one
+            a(href=`posture${routes.exerciseList}`)
+                .container.container-two    
+                    button Do Exercise
+                        .fill-two
+

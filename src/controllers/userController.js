@@ -114,8 +114,8 @@ export const logout = (req, res) => {
 // Me
 
 export const getMe = async (req, res) => {
-  let exercises = [];
   let newExercises = [];
+  let recommendExercises = [];
 
   const headPercent =
     req.user.headGoodTime / (req.user.headGoodTime + req.user.headBadTime);
@@ -126,15 +126,13 @@ export const getMe = async (req, res) => {
     req.user.legGoodTime / (req.user.legGoodTime + req.user.legBadTime);
 
   try {
-    newExercises = await Exercise.find({ type: 0 });
-    exercises = exercises.concat(newExercises);
     if (headPercent < 0.5) {
       newExercises = await Exercise.find({ type: 1 });
-      exercises = exercises.concat(newExercises);
+      recommendExercises = recommendExercises.concat(newExercises);
     }
     if (shoulderPercent < 0.5) {
       newExercises = await Exercise.find({ type: 2 });
-      exercises = exercises.concat(newExercises);
+      recommendExercises = recommendExercises.concat(newExercises);
     }
     if (
       legPercent < 0.5 &&
@@ -142,11 +140,16 @@ export const getMe = async (req, res) => {
       req.user.legBadTime !== 0
     ) {
       newExercises = await Exercise.find({ type: 3 });
-      exercises = exercises.concat(newExercises);
+      recommendExercises = recommendExercises.concat(newExercises);
     }
+    newExercises = await Exercise.find({ type: 0 });
+    recommendExercises = recommendExercises.concat(newExercises);
   } catch (error) {
     console.log(error);
   }
+  const exercises = recommendExercises.filter(
+    (history) => recommendExercises.indexOf(history) < 6
+  );
   const user = await User.findById(req.user.id).populate("histories");
   res.render("userDetail", { pageTitle: "My Profile", user, exercises });
 };

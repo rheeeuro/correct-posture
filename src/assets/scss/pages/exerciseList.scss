@@ -3,10 +3,13 @@
   .head-exercise,
   .shoulder-exercise,
   .leg-exercise {
+    color: white;
     .title {
-      border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+
       margin-bottom: 10px;
       h2 {
+        text-shadow: 1px 1px 1px gray;
         font-size: 20px;
         margin-left: 5px;
         margin-bottom: 5px;
