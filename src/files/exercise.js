@@ -33,8 +33,8 @@ async function init() {
   if (countInfo) {
     countInfo.style.display = "flex";
   }
-  const modelURL = URL + "model.json";
-  const metadataURL = URL + "metadata.json";
+  const modelURL = `files/models/${URL}/model.json`;
+  const metadataURL = `files/models/${URL}/metadata.json`;
 
   // load the model and metadata
   // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
@@ -77,6 +77,8 @@ async function predict() {
   // Prediction 2: run input through teachable machine classification model
   const prediction = await model.predict(posenetOutput);
 
+
+  // [0] - pose 1(first), [1] - pose 2(last), [2] - else, [3] - nocam , ... 
   if (prediction[0].probability.toFixed(2) > 0.9) {
     if (status == "two") {
       count += 1;
@@ -106,24 +108,23 @@ async function predict() {
       ).style.strokeDashoffset = countProgress;
       document.getElementById("jsCount").innerHTML = count;
 
-      let audio = new Audio(
-        `https://evolution.voxeo.com/library/audio/prompts/numbers/${
-          count % 10 === 0 ? 10 : count % 10
-        }.wav`
-      );
+      let audio = new Audio(`files/audios/${count % 10}.wav`);
       audio.play();
     }
     status = "one";
   } else if (prediction[1].probability.toFixed(2) == 1.0) {
     status = "two";
-  }
-  // else if (prediction[2].probability.toFixed(2) === 1.0) {
-  //   if (status === "one" || status === "two") {
-  //     // let audio = new Audio();
-  //     // audio.play();
-  //   }
-  //   status = "else";
-  // }
+  } else if (prediction[2].probability.toFixed(2) === 1.0) {
+    if (status !== "else") {
+      let audio = new Audio("files/audios/beep.wav");
+      audio.play();
+    }
+    status = "else";
+  } else if (prediction[3].probability.toFixed(2) === 1.0) {
+    if (status !== "nocam") {
+      // nocam process
+    }
+    status = "nocam";
 
   for (let i = 0; i < maxPredictions; i++) {
     const classPrediction =
