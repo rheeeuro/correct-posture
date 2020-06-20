@@ -88,7 +88,7 @@ async function predict() {
       )}`;
 
       // count set
-      if (count % 10 === 0) {
+      if (count % unitCount === 0) {
         setProgress = setProgress - 32.7;
         if (setProgress <= 0) {
           setProgress = 327 - 32.7;
