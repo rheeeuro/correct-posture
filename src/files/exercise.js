@@ -33,8 +33,8 @@ async function init() {
   if (countInfo) {
     countInfo.style.display = "flex";
   }
-  const modelURL = `./models/${URL}/model.json`;
-  const metadataURL = `./models/${URL}/metadata.json`;
+  const modelURL = `../files/models/${URL}/model.json`;
+  const metadataURL = `../files/models/${URL}/metadata.json`;
 
   // load the model and metadata
   // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
@@ -107,7 +107,7 @@ async function predict() {
       ).style.strokeDashoffset = countProgress;
       document.getElementById("jsCount").innerHTML = count;
 
-      let audio = new Audio(`./audios/${count % 10}.wav`);
+      let audio = new Audio(`../files/audios/${count % 10}.wav`);
       audio.play();
     }
     status = "one";
@@ -115,7 +115,7 @@ async function predict() {
     status = "two";
   } else if (prediction[2].probability.toFixed(2) === 1.0) {
     if (status !== "else") {
-      let audio = new Audio("./audios/beep.wav");
+      let audio = new Audio("../files/audios/beep.wav");
       audio.play();
     }
     status = "else";
