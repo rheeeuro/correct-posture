@@ -42,6 +42,7 @@ block content
     if loggedUser
         input(type="hidden", id="username", value=loggedUser.name)
     input(type="hidden", id="modelUrl", value=exercise.modelUrl)
+    input(type="hidden", id="exerciseCount", value=exercise.count)
 
 block bottom
     script(src="../files/libs/tf.min.js")

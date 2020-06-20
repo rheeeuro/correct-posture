@@ -77,12 +77,14 @@ async function predict() {
   // Prediction 2: run input through teachable machine classification model
   const prediction = await model.predict(posenetOutput);
 
+  const countValue = document.getElementById(exerciseCount);
+  const unitCount = parseInt(countValue, 10);
   // [0] - pose 1(first), [1] - pose 2(last), [2] - else, [3] - nocam , ...
   if (prediction[0].probability.toFixed(2) > 0.9) {
     if (status == "two") {
       count += 1;
       document.getElementById("setCount").innerHTML = `Set count: ${parseInt(
-        count / 10
+        count / unitCount
       )}`;
 
       // count set
@@ -94,7 +96,9 @@ async function predict() {
         document.getElementById(
           "jsSetProgress"
         ).style.strokeDashoffset = setProgress;
-        document.getElementById("jsSet").innerHTML = parseInt(count / 10);
+        document.getElementById("jsSet").innerHTML = parseInt(
+          count / unitCount
+        );
       }
 
       // count times
