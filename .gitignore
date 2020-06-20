@@ -105,6 +105,3 @@ dist
 
 static
 build
-src/libs
-src/image
-src/models
