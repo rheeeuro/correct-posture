@@ -9,7 +9,7 @@ const startButton = document.getElementById("startButton");
 const saveButton = document.getElementById("saveButton");
 const redirectButton = document.getElementById("redirectButton");
 const username = document.getElementById("username");
-const modelUrl = document.getElementById("modelUrl");
+const countInfo = document.getElementById("jsCountinfo");
 
 let model;
 let webcam;
@@ -17,16 +17,21 @@ let ctx;
 let labelContainer;
 let maxPredictions;
 
-let status = "one";
+let status = "none";
+let setProgress = 327;
+let countProgress = 327;
 let count = 0;
 
 async function init() {
-  const URL = modelURL.value;
+  const URL = document.getElementById("modelUrl").value;
   startButton.style.display = "none";
   if (username) {
     saveButton.style.display = "block";
   } else {
     redirectButton.style.display = "block";
+  }
+  if (countInfo) {
+    countInfo.style.display = "flex";
   }
   const modelURL = URL + "model.json";
   const metadataURL = URL + "metadata.json";
@@ -78,7 +83,29 @@ async function predict() {
       document.getElementById("setCount").innerHTML = `Set count: ${parseInt(
         count / 10
       )}`;
-      document.getElementById("totalCount").innerHTML = `Total count: ${count}`;
+
+      // count set
+      if (count % 10 === 0) {
+        setProgress = setProgress - 32.7;
+        if (setProgress <= 0) {
+          setProgress = 327 - 32.7;
+        }
+        document.getElementById(
+          "jsSetProgress"
+        ).style.strokeDashoffset = setProgress;
+        document.getElementById("jsSet").innerHTML = parseInt(count / 10);
+      }
+
+      // count times
+      countProgress = countProgress - 32.7;
+      if (countProgress <= 0) {
+        countProgress = 327 - 32.7;
+      }
+      document.getElementById(
+        "jsCountProgress"
+      ).style.strokeDashoffset = countProgress;
+      document.getElementById("jsCount").innerHTML = count;
+
       let audio = new Audio(
         `https://evolution.voxeo.com/library/audio/prompts/numbers/${
           count % 10 === 0 ? 10 : count % 10

@@ -36,16 +36,16 @@ block content
                     p#resultLegText|Keep your leg parallel to the floor
                 .statisticCard#jsLegStat
                     .bar#jsLegBar|Leg posture ratio
-    if loggedUser
-        input(type="hidden", id="userId", value=loggedUser.id)
+    .buttonContainer#jsBtnContainer
+        a#jsJudgeAnchor
+            button.judgeBtn#jsJudgeBtn|Judge Start!
         input(type="hidden", id="goodTotal", value="false")
         input(type="hidden", id="goodHead", value="false")
         input(type="hidden", id="goodShoulder", value="false")
         input(type="hidden", id="goodLeg", value="false")
-        .buttonContainer#jsBtnContainer
-            a#jsJudgeAnchor
-                button.judgeBtn#jsJudgeBtn|Judge Start!
+    if loggedUser
+        input(type="hidden", id="userId", value=loggedUser.id)
 
 
 block bottom
-    script(src="static/sketch.js")
+    script(src="files/sketch.js")

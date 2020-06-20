@@ -18,6 +18,7 @@ const ExerciseSchema = new mongoose.Schema({
     required: "Model Url us required",
   },
   type: Number,
+  count: Number,
   description: String,
 });
 

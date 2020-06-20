@@ -1,0 +1,17 @@
+extends layouts/main
+include mixins/exerciseBlock
+
+block content
+    .recommendContainer
+        .title
+            h2
+                |Recommended part:
+                span=` '${title}'`
+        .exercises
+            each exercise in exercises
+                +exerciseBlock({
+                    id: exercise.id,
+                    name:exercise.name,
+                    imageUrl:exercise.imageUrl,
+                    level:exercise.level
+                })

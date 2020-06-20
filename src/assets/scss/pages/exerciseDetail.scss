@@ -2,31 +2,37 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   .imageContainer {
     width: 400px;
     height: 400px;
-    margin-right: 60px;
+    margin-right: 30px;
     margin-bottom: 20px;
     img {
       width: 400px;
       height: 400px;
-      margin-bottom: 10px;
       border: 3px solid rgba(0, 0, 0, 0.1);
     }
     canvas {
       border: 3px solid rgba(0, 0, 0, 0.1);
     }
   }
-
-  .label {
-    margin-bottom: 10px;
+  .exercise__info {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .exercise__info::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
   }
   .exercise__info {
+    border: 3px solid rgba(0, 0, 0, 0.2);
     width: 100%;
-    margin-top: 30px;
-    margin-bottom: 15px;
-
+    height: 400px;
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     h2 {
       font-size: 20px;
       margin-bottom: 15px;
@@ -52,6 +58,51 @@
       font-size: 15px;
       margin-bottom: 20px;
       line-height: 2em;
+    }
+  }
+}
+.set__info {
+  width: 100%;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: row;
+  .circle-big {
+    width: 114px;
+    height: 114px;
+    margin: 30px auto 25px auto;
+    svg {
+      width: 114px;
+      height: 114px;
+    }
+    .bg {
+      fill: none;
+      stroke-width: 10px;
+      stroke: rgba(0, 0, 128, 0.2);
+    }
+    .progress {
+      fill: none;
+      stroke-width: 10px;
+      stroke: rgba(0, 0, 128, 0.6);
+      stroke-linecap: round;
+      stroke-dasharray: 326.56;
+      stroke-dashoffset: 327;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      animation: big 1.5s ease-out;
+    }
+    .text {
+      position: absolute;
+      width: 100%;
+      top: 37px;
+      font-size: 24px;
+      text-align: center;
+      font-weight: 400;
+      line-height: 22px;
+      .small {
+        font-size: 14px;
+        color: #648192;
+      }
     }
   }
 }

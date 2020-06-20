@@ -14,6 +14,8 @@ const headBar = document.getElementById("jsHeadBar");
 const shoulderBar = document.getElementById("jsShoulderBar");
 const legBar = document.getElementById("jsLegBar");
 
+const id = document.getElementById("userId");
+
 let intervalId;
 let count = {
   goodTotal: 0,
@@ -24,6 +26,10 @@ let count = {
   badShoulder: 0,
   goodLeg: 0,
   badLeg: 0,
+  percentTotal: 0,
+  percentHead: 0,
+  percentShoulder: 0,
+  percentLeg: 0,
 };
 
 const saveStatistics = async () => {
@@ -71,41 +77,41 @@ const countFunction = () => {
     count.badLeg += 1;
   }
 
-  const percentTotal = Math.round(
+  count.percentTotal = Math.round(
     100 * (count.goodTotal / (count.goodTotal + count.badTotal))
   );
-  const percentHead = Math.round(
+  count.percentHead = Math.round(
     100 * (count.goodHead / (count.goodHead + count.badHead))
   );
-  const percentShoulder = Math.round(
+  count.percentShoulder = Math.round(
     100 * (count.goodShoulder / (count.goodShoulder + count.badShoulder))
   );
-  const percentLeg = Math.round(
+  count.percentLeg = Math.round(
     100 * (count.goodLeg / (count.goodLeg + count.badLeg))
   );
 
-  totalBar.style.width = `${percentTotal}%`;
-  headBar.style.width = `${percentHead}%`;
-  shoulderBar.style.width = `${percentShoulder}%`;
-  legBar.style.width = `${percentLeg}%`;
+  totalBar.style.width = `${count.percentTotal}%`;
+  headBar.style.width = `${count.percentHead}%`;
+  shoulderBar.style.width = `${count.percentShoulder}%`;
+  legBar.style.width = `${count.percentLeg}%`;
 
-  if (percentTotal >= 5) {
-    totalBar.innerHTML = `${percentTotal}%`;
+  if (count.percentTotal >= 5) {
+    totalBar.innerHTML = `${count.percentTotal}%`;
   } else {
     totalBar.innerHTML = "";
   }
-  if (percentHead >= 5) {
-    headBar.innerHTML = `${percentHead}%`;
+  if (count.percentHead >= 5) {
+    headBar.innerHTML = `${count.percentHead}%`;
   } else {
     headBar.innerHTML = "";
   }
-  if (percentShoulder >= 5) {
-    shoulderBar.innerHTML = `${percentShoulder}%`;
+  if (count.percentShoulder >= 5) {
+    shoulderBar.innerHTML = `${count.percentShoulder}%`;
   } else {
     shoulderBar.innerHTML = "";
   }
-  if (percentLeg >= 5) {
-    legBar.innerHTML = `${percentLeg}%`;
+  if (count.percentLeg >= 5) {
+    legBar.innerHTML = `${count.percentLeg}%`;
   } else {
     legBar.innerHTML = "";
   }
@@ -113,20 +119,43 @@ const countFunction = () => {
 
 const handleSave = () => {
   clearInterval(intervalId);
-  saveStatistics();
+  if (id) {
+    saveStatistics();
+  }
 
-  // reset width
-  totalBar.style.width = "100%";
-  headBar.style.width = "100%";
-  shoulderBar.style.width = "100%";
-  legBar.style.width = "100%";
-
-  // change view
-  judgeBtn.innerHTML = "Judge Start!";
-  totalBar.innerHTML = "Composite postural ratio";
-  headBar.innerHTML = "Head posture ratio";
-  shoulderBar.innerHTML = "Shoulder posture ratio";
-  legBar.innerHTML = "Leg posture ratio";
+  // recommend type
+  let recommend = 0;
+  if (count.goodLeg !== 0 || count.badLeg !== 0) {
+    if (
+      count.percentHead < count.percentShoulder &&
+      count.percentHead < count.percentLeg &&
+      count.percentHead < 70
+    ) {
+      recommend = 1;
+    } else if (
+      count.percentShoulder < count.percentHead &&
+      count.percentShoulder < count.percentLeg &&
+      count.percentShoulder < 70
+    ) {
+      recommend = 2;
+    } else if (
+      count.percentLeg < count.percentHead &&
+      count.percentLeg < count.percentShoulder &&
+      count.percentLeg < 70
+    ) {
+      recommend = 3;
+    }
+  } else if (
+    count.percentHead < count.percentShoulder &&
+    count.percentHead < 70
+  ) {
+    recommend = 1;
+  } else if (
+    count.percentShoulder < count.percentHead &&
+    count.percentShoulder < 70
+  ) {
+    recommend = 2;
+  }
 
   // reset
   count.goodTotal = 0;
@@ -140,7 +169,8 @@ const handleSave = () => {
 
   // change event listener
   judgeAnchor.removeEventListener("click", handleSave);
-  judgeAnchor.addEventListener("click", handleStart);
+  judgeAnchor.href = `/posture/recommend/${recommend}`;
+  judgeAnchor.click();
 };
 
 const handleStart = () => {

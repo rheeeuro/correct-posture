@@ -18,6 +18,7 @@ const CHANGE_PASSWORD = "/change-password";
 const POSTURE = "/posture";
 const EXERCISE_DETAIL = "/:id";
 const EXERCISE_LIST = "/exerciseList";
+const RECOMMEND = "/recommend/:type";
 
 // Github
 
@@ -60,6 +61,12 @@ const routes = {
       return `/posture/${id}`;
     }
     return EXERCISE_DETAIL;
+  },
+  recommend: (type) => {
+    if (type) {
+      return `/posture/recommend/${type}`;
+    }
+    return RECOMMEND;
   },
   gitHub: GITHUB,
   githubCallback: GITHUB_CALLBACK,

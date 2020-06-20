@@ -38,14 +38,48 @@ export const exerciseDetail = async (req, res) => {
   }
 };
 
+export const recommend = async (req, res) => {
+  const {
+    params: { type },
+  } = req;
+  try {
+    const typeNum = parseInt(type, 10);
+    const exercises = await Exercise.find({ type: typeNum });
+    let title;
+    switch (typeNum) {
+      case 0:
+        title = "Physical Strength";
+        break;
+      case 1:
+        title = "Head (neck)";
+        break;
+      case 2:
+        title = "Shoulder (waist)";
+        break;
+      case 3:
+        title = "Leg";
+        break;
+      default:
+        break;
+    }
+    res.render("recommend", {
+      pageTitle: "Recommend Exercise",
+      exercises,
+      title,
+    });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+
 // Add Exercise
 export const getAddExercise = (req, res) => {
-  console.log("a");
   res.render("addExercise", { pageTitle: "Add Exercise" });
 };
+
 export const postAddExercise = async (req, res) => {
   const {
-    body: { imageUrl, name, level, modelUrl, type, description },
+    body: { imageUrl, name, level, modelUrl, type, count, description },
   } = req;
   try {
     const newExercise = await Exercise.create({
@@ -54,6 +88,7 @@ export const postAddExercise = async (req, res) => {
       level,
       modelUrl,
       type,
+      count,
       description,
     });
     res.redirect(routes.exerciseDetail(newExercise.id));

@@ -1,0 +1,32 @@
+.recommendContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .title {
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    h2 {
+      width: 100%;
+      font-size: 17px;
+      margin-bottom: 30px;
+      span {
+        font-size: 23px;
+        font-weight: 600;
+      }
+    }
+  }
+  .exercises {
+    width: 100%;
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    grid-gap: 30px;
+    white-space: nowrap;
+  }
+}

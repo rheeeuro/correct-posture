@@ -21,15 +21,29 @@ block content
             button(style={display:"none"})#saveButton|Finish Exercise
             button(style={display:"none"})#redirectButton|Finish Exercise
             h4=exercise.description
-            .countInfo#jsCountInfo
-                h1#setCount
-                h1#totalCount
-                .label#label-container
-        if loggedUser
-            input(type="hidden", id="username", value=loggedUser.name)
-            input(type="hidden", id="modelUrl", value=exercise.modelUrl)
+    .set__info#jsCountinfo(style={display:"none"})
+        .circle-big
+            .text
+                span#jsSet|0
+                .small|set
+            svg
+                circle.bg(cx="57", cy="57", r="52")
+                circle.progress#jsSetProgress(cx="57" cy="57" r="52") 
+        .circle-big
+            .text
+                span#jsCount|0
+                .small|count
+            svg
+                circle.bg(cx="57", cy="57", r="52")
+                circle.progress#jsCountProgress(cx="57" cy="57" r="52") 
+        .countInfo#jsCountInfo
+            h1#setCount
+            .label#label-container
+    if loggedUser
+        input(type="hidden", id="username", value=loggedUser.name)
+    input(type="hidden", id="modelUrl", value=exercise.modelUrl)
 
 block bottom
     script(src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js")
     script(src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js")
-    script(src="../static/exercise.js")
+    script(src="../files/exercise.js")
