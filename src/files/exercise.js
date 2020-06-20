@@ -77,8 +77,8 @@ async function predict() {
   // Prediction 2: run input through teachable machine classification model
   const prediction = await model.predict(posenetOutput);
 
-  const countValue = document.getElementById(exerciseCount);
-  const unitCount = parseInt(countValue, 10);
+  const countValue = document.getElementById("exerciseCount");
+  const unitCount = parseInt(countValue.value, 10);
   // [0] - pose 1(first), [1] - pose 2(last), [2] - else, [3] - nocam , ...
   if (prediction[0].probability.toFixed(2) > 0.9) {
     if (status == "two") {
