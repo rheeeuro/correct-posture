@@ -3,7 +3,7 @@ extends layouts/main
 block content
     .exerciseContainer#jsExerciseContainer
         .imageContainer
-            img(src=exercise.imageUrl)#exerciseImage
+            img(src=`../files/images/${exercise.imageUrl}`)#exerciseImage
             canvas(style={display:"none"})#exerciseCanvas
         .exercise__info
             h2=exercise.name
