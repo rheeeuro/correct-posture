@@ -14,57 +14,58 @@ block content
                         button 🔒 Change Password 
         .user-profile__header
             h4.profile__username=user.name
-        .user-profile__Title
-            h4|Posture Statistics Chart
-        .user-profile__chart#userChart
-            input(type="hidden", id="totalGoodTime", value=user.totalGoodTime)
-            input(type="hidden", id="totalBadTime", value=user.totalBadTime)
-            input(type="hidden", id="headGoodTime", value=user.headGoodTime)
-            input(type="hidden", id="headBadTime", value=user.headBadTime)
-            input(type="hidden", id="shoulderGoodTime", value=user.shoulderGoodTime)
-            input(type="hidden", id="shoulderBadTime", value=user.shoulderBadTime)
-            input(type="hidden", id="legGoodTime", value=user.legGoodTime)
-            input(type="hidden", id="legBadTime", value=user.legBadTime)
-            .canvasContainer
-                canvas.chartCanvas#jsChartTotal
-                h4|Total Posture
-                p=`( Good ${user.totalGoodTime} : Bad ${user.totalBadTime} )`
-            .canvasContainer
-                canvas.chartCanvas#jsChartHead
-                h4|Head 
-                p=`( Good ${user.headGoodTime} : Bad ${user.headBadTime} )`
-            .canvasContainer
-                canvas.chartCanvas#jsChartShoulder
-                h4|Shoulder 
-                p=`( Good ${user.shoulderGoodTime} : Bad ${user.shoulderBadTime} )`
-            .canvasContainer
-                canvas.chartCanvas#jsChartLeg
-                h4|Leg 
-                p=`( Good ${user.legGoodTime} : Bad ${user.legBadTime} )`
-        .user-profile__Title
-            h4|Exercise Record History
-        .exercise-histories
-                -var allHistories = user.histories.reverse();
-                -var histories = allHistories.filter(history => allHistories.indexOf(history) < 6)
-                each history in histories
-                    +historyBlock({
-                        id: history.exercise.toString(),
-                        set: history.set,
-                        name:history.name,
-                        imageUrl:`./files/images/${history.imageUrl}`,
-                        level:history.level,
-                        date: formatDate(history.date),
-                    })
-        .user-profile__Title
-            h4|Recommend Exercises
-        .recommend-exercises
-                each exercise in exercises
-                    +exerciseBlock({
-                        id: exercise.id,
-                        name:exercise.name,
-                        imageUrl:`./files/images/${exercise.imageUrl}`,
-                        level:exercise.level
-                    })
+        .detail-report
+            .user-profile__Title
+                h4|Posture Statistics Chart
+            .user-profile__chart#userChart
+                input(type="hidden", id="totalGoodTime", value=user.totalGoodTime)
+                input(type="hidden", id="totalBadTime", value=user.totalBadTime)
+                input(type="hidden", id="headGoodTime", value=user.headGoodTime)
+                input(type="hidden", id="headBadTime", value=user.headBadTime)
+                input(type="hidden", id="shoulderGoodTime", value=user.shoulderGoodTime)
+                input(type="hidden", id="shoulderBadTime", value=user.shoulderBadTime)
+                input(type="hidden", id="legGoodTime", value=user.legGoodTime)
+                input(type="hidden", id="legBadTime", value=user.legBadTime)
+                .canvasContainer
+                    canvas.chartCanvas#jsChartTotal
+                    h4|Total Posture
+                    p=`( Good ${user.totalGoodTime} : Bad ${user.totalBadTime} )`
+                .canvasContainer
+                    canvas.chartCanvas#jsChartHead
+                    h4|Head 
+                    p=`( Good ${user.headGoodTime} : Bad ${user.headBadTime} )`
+                .canvasContainer
+                    canvas.chartCanvas#jsChartShoulder
+                    h4|Shoulder 
+                    p=`( Good ${user.shoulderGoodTime} : Bad ${user.shoulderBadTime} )`
+                .canvasContainer
+                    canvas.chartCanvas#jsChartLeg
+                    h4|Leg 
+                    p=`( Good ${user.legGoodTime} : Bad ${user.legBadTime} )`
+            .user-profile__Title
+                h4|Exercise Record History
+            .exercise-histories
+                    -var allHistories = user.histories.reverse();
+                    -var histories = allHistories.filter(history => allHistories.indexOf(history) < 6)
+                    each history in histories
+                        +historyBlock({
+                            id: history.exercise.toString(),
+                            set: history.set,
+                            name:history.name,
+                            imageUrl:`./files/images/${history.imageUrl}`,
+                            level:history.level,
+                            date: formatDate(history.date),
+                        })
+            .user-profile__Title
+                h4|Recommend Exercises
+            .recommend-exercises
+                    each exercise in exercises
+                        +exerciseBlock({
+                            id: exercise.id,
+                            name:exercise.name,
+                            imageUrl:`./files/images/${exercise.imageUrl}`,
+                            level:exercise.level
+                        })
 block bottom
     script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3")
     script(src="files/chart.js")
