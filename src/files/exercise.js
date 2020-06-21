@@ -62,6 +62,8 @@ async function init() {
     // and class labels
     labelContainer.appendChild(document.createElement("div"));
   }
+  document.getElementById("jsOverlay").style.display = "none";
+  document.getElementById("jsLoading").style.display = "none";
 }
 
 async function loop(timestamp) {

@@ -1,48 +1,51 @@
 extends layouts/main
 
 block content
-    .exerciseContainer#jsExerciseContainer
-        .imageContainer
-            img(src=`../files/images/${exercise.imageUrl}`)#exerciseImage
-            canvas(style={display:"none"})#exerciseCanvas
-        .exercise__info
-            h2=exercise.name
-            h6.exerciseBlock__level
-                - var star = exercise.level
-                - var noStar = 5 - exercise.level
-                while star > 0
-                    span
-                        i.fas.fa-star
-                        -star--
-                while noStar > 0
-                        i.far.fa-star
-                        -noStar--
-            button#startButton|Start Exercise
-            button(style={display:"none"})#saveButton|Finish Exercise
-            button(style={display:"none"})#redirectButton|Finish Exercise
-            h4=exercise.description
-    .set__info#jsCountinfo(style={display:"none"})
-        .circle-big
-            .circle__text
-                span#jsSet|0
-                .small|set
-            svg
-                circle.bg(cx="57", cy="57", r="52")
-                circle.progress#jsSetProgress(cx="57" cy="57" r="52") 
-        .circle-big
-            .circle__text
-                span#jsCount|0
-                .small|count
-            svg
-                circle.bg(cx="57", cy="57", r="52")
-                circle.progress#jsCountProgress(cx="57" cy="57" r="52") 
-        .countInfo#jsCountInfo
-            h1#setCount
-            .label#label-container
-    if loggedUser
-        input(type="hidden", id="username", value=loggedUser.name)
-    input(type="hidden", id="modelUrl", value=exercise.modelUrl)
-    input(type="hidden", id="exerciseCount", value=exercise.count)
+    .exercise-wrapper
+        .overlay#jsOverlay
+        .loading#jsLoading
+        .exerciseContainer#jsExerciseContainer
+            .imageContainer
+                img(src=`../files/images/${exercise.imageUrl}`)#exerciseImage
+                canvas(style={display:"none"})#exerciseCanvas
+            .exercise__info
+                h2=exercise.name
+                h6.exerciseBlock__level
+                    - var star = exercise.level
+                    - var noStar = 5 - exercise.level
+                    while star > 0
+                        span
+                            i.fas.fa-star
+                            -star--
+                    while noStar > 0
+                            i.far.fa-star
+                            -noStar--
+                button#startButton|Start Exercise
+                button(style={display:"none"})#saveButton|Finish Exercise
+                button(style={display:"none"})#redirectButton|Finish Exercise
+                h4=exercise.description
+        .set__info#jsCountinfo(style={display:"none"})
+            .circle-big
+                .circle__text
+                    span#jsSet|0
+                    .small|set
+                svg
+                    circle.bg(cx="57", cy="57", r="52")
+                    circle.progress#jsSetProgress(cx="57" cy="57" r="52") 
+            .circle-big
+                .circle__text
+                    span#jsCount|0
+                    .small|count
+                svg
+                    circle.bg(cx="57", cy="57", r="52")
+                    circle.progress#jsCountProgress(cx="57" cy="57" r="52") 
+            .countInfo#jsCountInfo
+                h1#setCount
+                .label#label-container
+        if loggedUser
+            input(type="hidden", id="username", value=loggedUser.name)
+        input(type="hidden", id="modelUrl", value=exercise.modelUrl)
+        input(type="hidden", id="exerciseCount", value=exercise.count)
 
 block bottom
     script(src="../files/libs/tf.min.js")
