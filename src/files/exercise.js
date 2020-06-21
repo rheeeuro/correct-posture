@@ -23,6 +23,8 @@ let countProgress = 327;
 let count = 0;
 
 async function init() {
+  document.getElementById("jsOverlay").style.display = "block";
+  document.getElementById("jsLoading").style.display = "block";
   const URL = document.getElementById("modelUrl").value;
   startButton.style.display = "none";
   if (username) {

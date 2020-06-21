@@ -38,10 +38,11 @@ block content
                     .small|count
                 svg
                     circle.bg(cx="57", cy="57", r="52")
-                    circle.progress#jsCountProgress(cx="57" cy="57" r="52") 
-            .countInfo#jsCountInfo
-                h1#setCount
-                .label#label-container
+                    circle.progress#jsCountProgress(cx="57" cy="57" r="52")
+            .circle-big.log     
+                .countInfo#jsCountInfo
+                    h1#setCount
+                    .label#label-container
         if loggedUser
             input(type="hidden", id="username", value=loggedUser.name)
         input(type="hidden", id="modelUrl", value=exercise.modelUrl)
