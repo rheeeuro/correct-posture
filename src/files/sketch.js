@@ -57,8 +57,6 @@ function gotPoses(poses) {
 }
 
 function modelReady() {
-  select("#status").html("Model Loaded");
-  document.getElementById("jsLoagingcard").classList.add("loaded");
   document.getElementById("jsOverlay").style.display = "none";
   document.getElementById("jsLoading").style.display = "none";
 }

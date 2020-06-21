@@ -10,51 +10,28 @@
     background-color: rgba(0, 0, 0, 0.4);
     overflow-x: hidden;
   }
-  .judge-description {
-    font-family: Helvetica, sans-serif;
-    text-shadow: 1px 1px 1px gray;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 10px;
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    .loading {
-      z-index: 1001;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      border: 0.25rem solid rgba(255, 255, 255, 0.2);
-      border-top-color: white;
-      animation: spin 1s infinite linear;
-    }
 
-    .loadingcard.loaded {
-      background-color: rgba(60, 179, 113, 0.2);
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
     }
-    .loadingcard {
-      height: 30px;
-      border-radius: 20px;
-      border: 1px solid white;
-      background-color: rgba(222, 184, 135, 0.2);
-      p {
-        color: white;
-        font-weight: 100;
-        margin-top: 5px;
-        font-size: 20px;
-      }
+    100% {
+      transform: rotate(360deg);
     }
   }
+  .loading {
+    z-index: 1001;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    border: 0.25rem solid rgba(255, 255, 255, 0.2);
+    border-top-color: white;
+    animation: spin 1s infinite linear;
+  }
+
   .judge-container {
     font-family: Helvetica, sans-serif;
     text-shadow: 1px 1px 1px gray;
