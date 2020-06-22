@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import passport from "passport";
 import GithubStrategy from "passport-github";
 import NaverStrategy from "passport-naver";
@@ -8,6 +9,8 @@ import {
 } from "./controllers/userController";
 import routes from "./routes";
 
+dotenv.config();
+
 passport.use(User.createStrategy());
 
 passport.use(
@@ -15,7 +18,9 @@ passport.use(
     {
       clientID: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
-      callbackURL: `http://localhost:4000${routes.githubCallback}`,
+      callbackURL: process.env.PRODUCTION
+        ? `https://c-posture.herokuapp.com${routes.githubCallback}`
+        : `http://localhost:4000${routes.githubCallback}`,
     },
     githubLoginCallback
   )
@@ -26,7 +31,9 @@ passport.use(
     {
       clientID: process.env.NAVER_ID,
       clientSecret: process.env.NAVER_SECRET,
-      callbackURL: `http://localhost:4000${routes.naverCallback}`,
+      callbackURL: process.env.PRODUCTION
+        ? `https://c-posture.herokuapp.com${routes.naverCallback}`
+        : `http://localhost:4000${routes.naverCallback}`,
     },
     naverLoginCallback
   )

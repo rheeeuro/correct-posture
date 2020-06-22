@@ -49,7 +49,7 @@ function setup() {
 }
 
 function gotPoses(poses) {
-  // console.log(poses);
+  console.log(poses);
   if (poses.length > 0) {
     pose = poses[0].pose;
     skeleton = poses[0].skeleton;
@@ -540,3 +540,5 @@ function postureAlgorithm() {
     }
   }
 }
+
+module.exports = postureAlgorithm;

@@ -27,11 +27,17 @@
           border: 3px solid rgba(255, 255, 255, 0.5);
         }
       }
-      .info-comtainer {
+      .info-container {
+        width: 70px;
         display: flex;
         flex-direction: column;
-        margin-left: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
         h4 {
+          width: 70px;
+          white-space: normal;
+          display: inline-block;
+          word-wrap: break-word;
           text-align: center;
           font-size: 15px;
           margin-top: 15px;
