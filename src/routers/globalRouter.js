@@ -19,7 +19,7 @@ import {
   naverLogin,
   postnaverLogin,
 } from "../controllers/userController";
-import { onlyPublic, onlyPrivate } from "../middlewares";
+import { onlyPublic, onlyPrivate, isAdmin } from "../middlewares";
 
 const globalRouter = express.Router();
 
@@ -33,8 +33,8 @@ globalRouter.post(routes.login, onlyPublic, postLogin);
 
 globalRouter.get(routes.logout, onlyPrivate, logout);
 
-globalRouter.get(routes.addExercise, onlyPrivate, getAddExercise);
-globalRouter.post(routes.addExercise, onlyPrivate, postAddExercise);
+globalRouter.get(routes.addExercise, isAdmin, getAddExercise);
+globalRouter.post(routes.addExercise, isAdmin, postAddExercise);
 
 globalRouter.get(routes.home, home);
 
